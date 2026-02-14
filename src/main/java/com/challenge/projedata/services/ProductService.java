@@ -1,7 +1,9 @@
 package com.challenge.projedata.services;
 
 import com.challenge.projedata.entities.Product;
+import com.challenge.projedata.exceptions.ResourceNotFoundException;
 import com.challenge.projedata.repositories.ProductRepository;
+import com.challenge.projedata.validations.ProductValidation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +22,12 @@ public class ProductService {
 
     public Product findById(Integer id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found."));
     }
 
     public Product save(Product product) {
+        ProductValidation.validade(product);
+        System.out.println("passou");
         return productRepository.save(product);
     }
 
