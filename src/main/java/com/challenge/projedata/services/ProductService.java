@@ -22,17 +22,18 @@ public class ProductService {
 
     public Product findById(Integer id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     public Product save(Product product) {
         ProductValidation.validade(product);
-        System.out.println("passou");
         return productRepository.save(product);
     }
 
     public Product update(Integer id, Product updated) {
         Product entity = findById(id);
+
+        ProductValidation.validade(updated);
 
         entity.setName(updated.getName());
         entity.setValue(updated.getValue());
@@ -41,6 +42,7 @@ public class ProductService {
     }
 
     public void delete(Integer id) {
+        findById(id);
         productRepository.deleteById(id);
     }
 

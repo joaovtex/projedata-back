@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/materias-primas")
+@RequestMapping("/raw-materials")
 public class RawMaterialController {
     private final RawMaterialService rawMaterialService;
 
@@ -20,22 +20,22 @@ public class RawMaterialController {
         return rawMaterialService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id={id}")
     public RawMaterial findById(@PathVariable Integer id) {
         return rawMaterialService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("new")
     public RawMaterial create(@RequestBody RawMaterial rawMaterial) {
         return rawMaterialService.save(rawMaterial);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit={id}")
     public RawMaterial update(@PathVariable Integer id, @RequestBody RawMaterial rawMaterial) {
         return rawMaterialService.update(id, rawMaterial);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete={id}")
     public void delete(@PathVariable Integer id) {
         rawMaterialService.delete(id);
     }

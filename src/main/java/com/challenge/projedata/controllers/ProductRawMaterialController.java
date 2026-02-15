@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/produto-materia-prima")
+@RequestMapping("/product-raw-material")
 public class ProductRawMaterialController {
     private final ProductRawMaterialService productRawMaterialService;
 
@@ -21,7 +21,7 @@ public class ProductRawMaterialController {
         return productRawMaterialService.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public ProductRawMaterial create(@RequestBody ProductRawMaterialRequestDTO dto) {
         return productRawMaterialService.save(
                 dto.getProductId(),
@@ -30,12 +30,12 @@ public class ProductRawMaterialController {
         );
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit={id}")
     public ProductRawMaterial update(@PathVariable Integer id, @RequestBody ProductRawMaterialRequestDTO dto) {
         return productRawMaterialService.update(id, dto.getRequiredQuantity());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete={id}")
     public void delete(@PathVariable Integer id) {
         productRawMaterialService.delete(id);
     }

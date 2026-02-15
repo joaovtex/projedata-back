@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/producao")
+@RequestMapping("/production")
 public class ProductionController {
     private final ProductionService productionService;
 

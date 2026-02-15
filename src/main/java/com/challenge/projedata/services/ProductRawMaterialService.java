@@ -3,9 +3,11 @@ package com.challenge.projedata.services;
 import com.challenge.projedata.entities.Product;
 import com.challenge.projedata.entities.ProductRawMaterial;
 import com.challenge.projedata.entities.RawMaterial;
+import com.challenge.projedata.exceptions.ResourceNotFoundException;
 import com.challenge.projedata.repositories.ProductRawMaterialRepository;
 import com.challenge.projedata.repositories.ProductRepository;
 import com.challenge.projedata.repositories.RawMaterialRepository;
+import com.challenge.projedata.validations.ProductRawMaterialValidation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,10 +34,12 @@ public class ProductRawMaterialService {
 
     public ProductRawMaterial save (Integer productId, Integer rawMaterialId, Integer requiredQuantity) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
 
         RawMaterial rawMaterial = rawMaterialRepository.findById(rawMaterialId)
-                .orElseThrow(() -> new RuntimeException("Matéria Prima não encontrada."));
+                .orElseThrow(() -> new ResourceNotFoundException("Raw Material not found with id: " + rawMaterialId));
+
+        ProductRawMaterialValidation.validateRequiredQuantity(requiredQuantity);
 
         ProductRawMaterial entity = new ProductRawMaterial();
         entity.setProduct(product);

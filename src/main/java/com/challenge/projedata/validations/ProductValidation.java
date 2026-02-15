@@ -7,9 +7,8 @@ import java.math.BigDecimal;
 
 public class ProductValidation {
     public static void validade(Product product) {
-        System.out.println("passou 2");
-        if (product == null) {
-            throw new BadRequestException("Product must not be null.");
+        if (product.getName() == null) {
+            throw new BadRequestException("Product name must not be null.");
         }
 
         if (product.getName().isEmpty()) {
@@ -17,7 +16,7 @@ public class ProductValidation {
         }
 
         if (product.getValue() == null) {
-            throw new BadRequestException("Product value is requires.");
+            throw new BadRequestException("Product value must not be null.");
         }
 
         if (product.getValue().compareTo(BigDecimal.ZERO) <= 0) {

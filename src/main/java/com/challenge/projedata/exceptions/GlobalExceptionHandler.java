@@ -7,17 +7,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    final private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Map<String, Object>> handlerBadRequest(BadRequestException ex) {
         Map<String, Object> error = new HashMap<>();
 
         error.put("status", HttpStatus.BAD_REQUEST.value());
         error.put("message", ex.getMessage());
+        error.put("timestamp", LocalDateTime.now().format(dateFormat));
 
         return ResponseEntity.badRequest().body(error);
     }
@@ -28,6 +32,7 @@ public class GlobalExceptionHandler {
 
         error.put("status", HttpStatus.NOT_FOUND.value());
         error.put("message", ex.getMessage());
+        error.put("timestamp", LocalDateTime.now().format(dateFormat));
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
@@ -38,7 +43,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> error = new HashMap<>();
         error.put("status", HttpStatus.BAD_REQUEST.value());
         error.put("message", "Invalid or malformed JSON request.");
-        error.put("timestamp", LocalDateTime.now());
+        error.put("timestamp", LocalDateTime.now().format(dateFormat));
 
         return ResponseEntity.badRequest().body(error);
     }
