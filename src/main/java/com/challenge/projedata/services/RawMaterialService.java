@@ -6,6 +6,7 @@ import com.challenge.projedata.exceptions.ResourceNotFoundException;
 import com.challenge.projedata.repositories.ProductRepository;
 import com.challenge.projedata.repositories.RawMaterialRepository;
 import com.challenge.projedata.validations.RawMaterialValidation;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class RawMaterialService {
         this.rawMaterialRepository = rawMaterialRepository;
     }
 
-    public List<RawMaterial> findAll() {
-        return rawMaterialRepository.findAll();
+    public List<RawMaterial> findAll(Sort sort) {
+        return rawMaterialRepository.findAll(sort);
     }
 
     public RawMaterial findById(Integer id) {
@@ -34,7 +35,7 @@ public class RawMaterialService {
 
         if (rawMaterialRepository.existsByNameIgnoreCase(rawMaterial.getName())) {
             throw new BadRequestException(
-                    "A raw material with this name already exists;"
+                    "A raw material with this name already exists"
             );
         }
 

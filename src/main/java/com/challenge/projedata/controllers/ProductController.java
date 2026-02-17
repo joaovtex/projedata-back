@@ -2,6 +2,7 @@ package com.challenge.projedata.controllers;
 
 import com.challenge.projedata.entities.Product;
 import com.challenge.projedata.services.ProductService;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> findAll() {
-        return productService.findAll();
+    public List<Product> findAll(Sort sort) {
+        return productService.findAll(sort);
     }
 
     @GetMapping("/id={id}")

@@ -2,6 +2,7 @@ package com.challenge.projedata.controllers;
 
 import com.challenge.projedata.entities.RawMaterial;
 import com.challenge.projedata.services.RawMaterialService;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class RawMaterialController {
     }
 
     @GetMapping
-    public List<RawMaterial> findAll() {
-        return rawMaterialService.findAll();
+    public List<RawMaterial> findAll(Sort sort) {
+        return rawMaterialService.findAll(sort);
     }
 
     @GetMapping("/id={id}")

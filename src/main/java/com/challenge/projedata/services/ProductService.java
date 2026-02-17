@@ -5,6 +5,7 @@ import com.challenge.projedata.exceptions.BadRequestException;
 import com.challenge.projedata.exceptions.ResourceNotFoundException;
 import com.challenge.projedata.repositories.ProductRepository;
 import com.challenge.projedata.validations.ProductValidation;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<Product> findAll(Sort sort) {
+        return productRepository.findAll(sort);
     }
 
     public Product findById(Integer id) {
