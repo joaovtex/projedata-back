@@ -10,7 +10,7 @@ public class RawMaterial {
     @Column(name = "rm_code")
     private Integer id;
 
-    @Column(name = "rm_name", nullable = false)
+    @Column(name = "rm_name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "rm_quantity", nullable = false)
@@ -22,6 +22,14 @@ public class RawMaterial {
         this.id = id;
         this.name = name;
         this.stockQuantity = stockQuantity;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void normalize() {
+        if (this.name != null) {
+            this.name = this.name.trim();
+        }
     }
 
     public Integer getId() {

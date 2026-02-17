@@ -1,7 +1,9 @@
 package com.challenge.projedata.services;
 
 import com.challenge.projedata.entities.RawMaterial;
+import com.challenge.projedata.exceptions.BadRequestException;
 import com.challenge.projedata.exceptions.ResourceNotFoundException;
+import com.challenge.projedata.repositories.ProductRepository;
 import com.challenge.projedata.repositories.RawMaterialRepository;
 import com.challenge.projedata.validations.RawMaterialValidation;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import java.util.List;
 public class RawMaterialService {
     RawMaterialRepository rawMaterialRepository;
 
-    public RawMaterialService(RawMaterialRepository rawMaterialRepository) {
+    public RawMaterialService(RawMaterialRepository rawMaterialRepository, ProductRepository productRepository) {
         this.rawMaterialRepository = rawMaterialRepository;
     }
 
@@ -27,6 +29,13 @@ public class RawMaterialService {
 
     public RawMaterial save(RawMaterial rawMaterial) {
         RawMaterialValidation.validate(rawMaterial);
+
+        if (rawMaterialRepository.existsByNameIgnoreCase(rawMaterial.getName())) {
+            throw new BadRequestException(
+                    "A raw material with this name already exists;"
+            );
+        }
+
         return rawMaterialRepository.save(rawMaterial);
     }
 
@@ -34,6 +43,12 @@ public class RawMaterialService {
         RawMaterial entity = findById(id);
 
         RawMaterialValidation.validate(updated);
+
+        if (rawMaterialRepository.existsByNameIgnoreCaseAndIdNot(updated.getName(), id)) {
+            throw new BadRequestException(
+                    "A raw material with this name already exists."
+            );
+        }
 
         entity.setName(updated.getName());
         entity.setStockQuantity(updated.getStockQuantity());

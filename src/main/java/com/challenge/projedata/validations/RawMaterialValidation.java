@@ -9,7 +9,7 @@ public class RawMaterialValidation {
             throw new BadRequestException("Raw Material name must not be null.");
         }
 
-        if (rawMaterial.getName().isEmpty()) {
+        if (rawMaterial.getName().trim().isEmpty()) {
             throw new BadRequestException("Raw Material name is required.");
         }
 

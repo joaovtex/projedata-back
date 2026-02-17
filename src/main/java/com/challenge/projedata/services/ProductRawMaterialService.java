@@ -32,6 +32,13 @@ public class ProductRawMaterialService {
         return productRawMaterialRepository.findAll();
     }
 
+    public List<ProductRawMaterial> findByProductId(Integer productId) {
+        productRepository.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id>: " + productId));
+
+        return productRawMaterialRepository.findByProduct_Id(productId);
+    }
+
     public ProductRawMaterial save (Integer productId, Integer rawMaterialId, Integer requiredQuantity) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));

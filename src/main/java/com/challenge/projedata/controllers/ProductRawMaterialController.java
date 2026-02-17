@@ -22,6 +22,11 @@ public class ProductRawMaterialController {
         return productRawMaterialService.findAll();
     }
 
+    @GetMapping("/product={productId}")
+    public List<ProductRawMaterial> findByProduct(@PathVariable Integer productId) {
+        return productRawMaterialService.findByProductId(productId);
+    }
+
     @PostMapping("/new")
     public ProductRawMaterial create(@RequestBody ProductRawMaterialRequestDTO dto) {
         return productRawMaterialService.save(

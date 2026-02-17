@@ -12,7 +12,7 @@ public class Product {
     @Column(name = "p_code")
     private Integer id;
 
-    @Column(name = "p_name", nullable = false)
+    @Column(name = "p_name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "p_value", nullable = false)
@@ -24,6 +24,14 @@ public class Product {
         this.id = id;
         this.name = name;
         this.value = value;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void normalize() {
+        if (this.name != null) {
+            this.name = this.name.trim();
+        }
     }
 
     public Integer getId() {

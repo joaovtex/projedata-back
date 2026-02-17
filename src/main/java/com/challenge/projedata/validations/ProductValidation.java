@@ -11,7 +11,7 @@ public class ProductValidation {
             throw new BadRequestException("Product name must not be null.");
         }
 
-        if (product.getName().isEmpty()) {
+        if (product.getName().trim().isEmpty()) {
             throw new BadRequestException("Product name is required.");
         }
 

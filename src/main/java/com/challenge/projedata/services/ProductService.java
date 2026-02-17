@@ -1,6 +1,7 @@
 package com.challenge.projedata.services;
 
 import com.challenge.projedata.entities.Product;
+import com.challenge.projedata.exceptions.BadRequestException;
 import com.challenge.projedata.exceptions.ResourceNotFoundException;
 import com.challenge.projedata.repositories.ProductRepository;
 import com.challenge.projedata.validations.ProductValidation;
@@ -27,6 +28,13 @@ public class ProductService {
 
     public Product save(Product product) {
         ProductValidation.validade(product);
+
+        if (productRepository.existsByNameIgnoreCase(product.getName())) {
+            throw new BadRequestException(
+                    "A product with this name already existis."
+            );
+        }
+
         return productRepository.save(product);
     }
 
@@ -34,6 +42,12 @@ public class ProductService {
         Product entity = findById(id);
 
         ProductValidation.validade(updated);
+
+        if (productRepository.existsByNameIgnoreCaseAndIdNot(updated.getName(), id)) {
+            throw new BadRequestException(
+                    "A product with this name already existis."
+            );
+        }
 
         entity.setName(updated.getName());
         entity.setValue(updated.getValue());
