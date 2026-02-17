@@ -29,6 +29,8 @@ public class ProductService {
     public Product save(Product product) {
         ProductValidation.validade(product);
 
+        product.setName(product.getName().trim());
+
         if (productRepository.existsByNameIgnoreCase(product.getName())) {
             throw new BadRequestException(
                     "A product with this name already existis."
@@ -42,6 +44,8 @@ public class ProductService {
         Product entity = findById(id);
 
         ProductValidation.validade(updated);
+
+        updated.setName(updated.getName().trim());
 
         if (productRepository.existsByNameIgnoreCaseAndIdNot(updated.getName(), id)) {
             throw new BadRequestException(

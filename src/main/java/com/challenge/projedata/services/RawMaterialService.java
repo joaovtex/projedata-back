@@ -30,6 +30,8 @@ public class RawMaterialService {
     public RawMaterial save(RawMaterial rawMaterial) {
         RawMaterialValidation.validate(rawMaterial);
 
+        rawMaterial.setName(rawMaterial.getName().trim());
+
         if (rawMaterialRepository.existsByNameIgnoreCase(rawMaterial.getName())) {
             throw new BadRequestException(
                     "A raw material with this name already exists;"
@@ -43,6 +45,8 @@ public class RawMaterialService {
         RawMaterial entity = findById(id);
 
         RawMaterialValidation.validate(updated);
+
+        updated.setName(updated.getName().trim());
 
         if (rawMaterialRepository.existsByNameIgnoreCaseAndIdNot(updated.getName(), id)) {
             throw new BadRequestException(
