@@ -14,9 +14,9 @@ O banco de dados utilizado nesse projeto foi feito no MySQL Workbench, e todo o 
 Existe na pasta base desse projeto um arquivo chamado "database.txt", lá estão os códigos de criação do banco e das tabelas que são usadas.
 
 Existem, no total, três tabelas: 
-tb_product: Responsável por armazenar os produtos e seus valores.
-tb_raw_material: Responsável por armazenar as matérias primas e quantidade e estoque.
-tb_p_rm: Responsável por fazer a associação entre produto e matéria prima + armazenar a quantidade de matéria prima necessária para produzir um produto.
+- tb_product: Responsável por armazenar os produtos e seus valores.
+- tb_raw_material: Responsável por armazenar as matérias primas e quantidade e estoque.
+- tb_p_rm: Responsável por fazer a associação entre produto e matéria prima + armazenar a quantidade de matéria prima necessária para produzir um produto.
 
 ## SOBRE O BACK-END (API)
 A API foi desenvolvida utilizand Spring Boot.
