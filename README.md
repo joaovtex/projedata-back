@@ -22,12 +22,12 @@ tb_p_rm: Responsável por fazer a associação entre produto e matéria prima + 
 A API foi desenvolvida utilizand Spring Boot.
 
 A API foi construída seguindo uma arquitetura em camadas para garantir a manutenibilidade:
--Controllers: Endpoints da API e manipulação de requisições HTTP.
--DTOs: Padrão para tráfego de dados entre camadas, evitando exposição direta das entidades.
--Entities: Representação das tabelas do banco de dados.
--Exceptions e Validations: Tratamento de erros global e validações de integridade de dados.
--Repositories: Interface de comunicação com o banco de dados via JPA.
--Services: Camada de regras de negócio.
+- Controllers: Endpoints da API e manipulação de requisições HTTP.
+- DTOs: Padrão para tráfego de dados entre camadas, evitando exposição direta das entidades.
+- Entities: Representação das tabelas do banco de dados.
+- Exceptions e Validations: Tratamento de erros global e validações de integridade de dados.
+- Repositories: Interface de comunicação com o banco de dados via JPA.
+- Services: Camada de regras de negócio.
 
 Todos os requisitos funcionais listados relacionados ao back-end estão sendo contemplados nesse projeto.
 
